@@ -4,31 +4,99 @@
 # The grading script reads this file directly. Every story ID in
 # docs/STORIES.md must appear here exactly once.
 
-- story_id: US-01
-  spec_section: "4.1 HTTP API and 4.2 Python interfaces"
-  source_modules:
-    - src/myproject/api.py
-    - src/myproject/router.py
-    - src/myproject/retriever.py
-    - src/myproject/generator.py
-  tests:
-    - tests/user_stories/test_us_01.py
-    - tests/integration/test_query_pipeline.py
+stories:
+  - id: US-01
+    title: Answer a straigthtforward question with no retrieval
+    spec_sections:
+      - "4. Public Inrefaces"
+      - "8.1 No Retrieval Strategy"
+      - "13. User Stories Cover by This Specification"
+    modules: 
+    - "src/myproject/classifier.py"
+    - "src/myproject/router.py"  
+    - "src/myproject/strategies.py"
+    - "src/myproject/schemas.py"
+    tests:
+    - "tests/user_stories/test_us_01_no_retrieval.py"
 
-- story_id: US-02
-  spec_section: "4.1 HTTP API (error response)"
-  source_modules:
-    - src/myproject/api.py
-  tests:
-    - tests/user_stories/test_us_02.py
-    - tests/edge/test_empty_input.py
+  - id: US-02
+    title: Answer a single-hop question with one retrieval step
+    spec_sections:
+      - "4. Public Interfaces"
+      - "8.2 Single-Step Retrieval Strategy"
+      - "9. Local Corpus"
+      - "13. User Stories Covered by This Specification"
+    modules:
+      - "src/myproject/classifier.py"
+      - "src/myproject/router.py"
+      - "src/myproject/retriever.py"
+      - "src/myproject/strategies.py"
+      - "src/myproject/schemas.py"
+    tests:
+      - "tests/user_stories/test_us_02_single_step.py"
 
-- story_id: US-03
-  spec_section: "6 Configuration"
-  source_modules:
-    - src/myproject/api.py
-    - src/myproject/generator.py
-  tests:
-    - tests/user_stories/test_us_03.py
+  - id: US-03
+    title: Answer a complex question with multi-step retrieval
+    spec_sections:
+      - "4. Public Interfaces"
+      - "8.3 Multi-Step Retrieval Strategy"
+      - "9. Local Corpus"
+      - "13. User Stories Covered by This Specification"
+    modules:
+      - "src/myproject/classifier.py"
+      - "src/myproject/router.py"
+      - "src/myproject/retriever.py"
+      - "src/myproject/strategies.py"
+      - "src/myproject/schemas.py"
+    tests:
+      - "tests/user_stories/test_us_03_multi_step.py"
+
+  - id: US-04
+    title: Show evidence, routing decision, latency, and request ID
+    spec_sections:
+      - "3. Data Flow"
+      - "4. Public Interfaces"
+      - "11. Logging"
+      - "13. User Stories Covered by This Specification"
+    modules:
+      - "src/myproject/api.py"
+      - "src/myproject/router.py"
+      - "src/myproject/retriever.py"
+      - "src/myproject/strategies.py"
+      - "src/myproject/logging_config.py"
+      - "src/myproject/schemas.py"
+    tests:
+      - "tests/user_stories/test_us_04_response_metadata.py"
+
+  - id: US-05
+    title: Empty input shows a clear error message
+    spec_sections:
+      - "3. Data Flow"
+      - "4. Public Interfaces"
+      - "12. Security and Responsible AI"
+      - "13. User Stories Covered by This Specification"
+    modules:
+      - "src/myproject/api.py"
+      - "src/myproject/router.py"
+      - "src/myproject/schemas.py"
+    tests:
+      - "tests/user_stories/test_us_05_empty_input.py"
+
+  - id: US-06
+    title: No evidence returns a safe fallback
+    spec_sections:
+      - "3. Data Flow"
+      - "4. Public Interfaces"
+      - "8.2 Single-Step Retrieval Strategy"
+      - "8.3 Multi-Step Retrieval Strategy"
+      - "12. Security and Responsible AI"
+      - "13. User Stories Covered by This Specification"
+    modules:
+      - "src/myproject/router.py"
+      - "src/myproject/retriever.py"
+      - "src/myproject/strategies.py"
+      - "src/myproject/schemas.py"
+    tests:
+      - "tests/user_stories/test_us_06_no_evidence.py"
 
 # Add one entry per story in docs/STORIES.md
