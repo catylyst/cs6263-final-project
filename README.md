@@ -627,10 +627,6 @@ CONTRIBUTIONS.md
 
 ## License
 
-MIT License
-
 See [CONTRIBUTIONS.md](CONTRIBUTIONS.md).
 
-## License
 
-[Your chosen license, e.g. MIT, Apache 2.0]
