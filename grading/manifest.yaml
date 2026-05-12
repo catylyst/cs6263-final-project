@@ -6,27 +6,76 @@
 
 python_version: "3.11.9"
 
-# Random seed used throughout the application. Code must read this seed and
-# pass it to numpy, torch, random, and any other source of randomness.
+# Random seed used throughout the application. This project is deterministic,
+# but the seed is still pinned for reproducibility.
 seed: 42
 
-# Models used by the application. Pin by ID and revision/version.
+# Models, classifiers, retrievers, and answer strategies used by the application.
+# This project does not use paid external LLM APIs or downloaded model checkpoints.
 model_ids:
-  - provider: anthropic
-    model: claude-opus-4-5-20251101
-    purpose: question answering
-  - provider: huggingface
-    model: sentence-transformers/all-MiniLM-L6-v2
-    revision: e4ce9877abf3edfe10b0d82785e83bdcb973e22e
-    purpose: query embedding
+  - provider: local
+    model: adaptive-rag-rule-based-classifier
+    identifier: src/myproject/classifier.py
+    revision: classifier-v1
+    purpose: query complexity classification
+
+  - provider: local
+    model: local-tfidf-retriever
+    identifier: src/myproject/retriever.py
+    revision: retriever-v1
+    purpose: local corpus retrieval and citation generation
+
+  - provider: local
+    model: deterministic-answer-strategies
+    identifier: src/myproject/strategies.py
+    revision: strategies-v1
+    purpose: no-retrieval, single-step retrieval, and multi-step retrieval answer generation
 
 # Datasets pinned by version or sha256.
+# The corpus is small, local, and project-authored. No external dataset download is required.
 dataset_versions:
-  - name: nist_csrc_pubs
-    version: "2024-09-01"
-    sha256: "<replace with computed sha256>"
+  - name: adaptive_rag_local_corpus
+    path: data/corpus.jsonl
+    version: "local-corpus-v1"
+    sha256: "7D77B1BF900EA2802EFB18B6D640537A310B22E3A8466F2B3BFD6B73BDBF51D1"
+    source: original_course_summary
+    external_download_required: false
 
-# Commit hash the team intends the TA to grade. The grading script picks this
-# up; if missing or stale, the TA grades the latest commit on main as of the
-# deadline. Update this on the final commit before pushing.
-commit_sha: ""
+# Expected headline metrics reported in README.md and docs/REPRODUCE.md.
+expected_metrics:
+  - name: user_story_pass_rate
+    expected: 1.00
+    tolerance: 0.00
+    measured_in: reports/user_stories.xml
+
+  - name: route_accuracy_local_eval
+    expected: 0.85
+    tolerance: 0.05
+    measured_in: reports/eval.json
+
+  - name: citation_present_rate
+    expected: 0.90
+    tolerance: 0.05
+    measured_in: reports/eval.json
+
+  - name: average_adaptive_retrieval_steps
+    expected: 1.20
+    tolerance: 0.30
+    measured_in: reports/eval.json
+
+  - name: average_api_latency_ms
+    expected: 250
+    tolerance: 100
+    measured_in: reports/benchmarks.json
+
+# Hardware profile used for local benchmark reference.
+hardware_profile:
+  device_name: DESKTOP-ST49FG2
+  cpu: AMD Ryzen 9 5900X 12-Core Processor
+  cpu_speed: 3.70 GHz
+  memory: 32.0 GB RAM
+  gpu: NVIDIA GeForce RTX 3080 10 GB
+  storage: 3.64 TB total storage
+  system_type: 64-bit operating system, x64-based processor
+
+commit_sha: "f0a71710b2c639a42f6fca287661893e949d1acc"
