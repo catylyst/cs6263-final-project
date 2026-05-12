@@ -24,10 +24,13 @@ COPY --from=builder /wheels /wheels
 COPY requirements.txt ./
 RUN pip install --user --no-index --find-links=/wheels -r requirements.txt
 ENV PATH=/home/app/.local/bin:$PATH
+ENV PYTHONPATH=/home/app/src
 
-# Copy source
+# Copy source and local project assets
 COPY --chown=app:app src ./src
+COPY --chown=app:app data ./data
 COPY --chown=app:app pyproject.toml ./
+
 RUN pip install --user -e .
 
 # Application port
