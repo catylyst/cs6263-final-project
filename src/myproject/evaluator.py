@@ -33,8 +33,7 @@ def token_overlap_score(predicted_answer: str, reference_answer: str) -> float:
     reference_counts = Counter(reference_tokens)
 
     overlap = sum(
-        min(predicted_counts[token], reference_counts[token])
-        for token in reference_counts
+        min(predicted_counts[token], reference_counts[token]) for token in reference_counts
     )
 
     return round(overlap / len(reference_tokens), 4)

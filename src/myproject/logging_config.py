@@ -9,17 +9,21 @@ from __future__ import annotations
 import json
 import logging
 import sys
-from datetime import datetime, timezone
-from typing import Any # The Any type is imported from the typing module to allow for flexible type annotations in the code, particularly in the JsonFormatter class where log record fields can have various types.
+from datetime import UTC, datetime
+from typing import (
+    Any,  # The Any type is imported from the typing module to allow for flexible type annotations in the code, particularly in the JsonFormatter class where log record fields can have various types.
+)
 
 
-class JsonFormatter(logging.Formatter): # This class defines a custom log formatter that formats log records as JSON strings. It inherits from the logging.Formatter class and overrides the format method to create a JSON payload containing relevant log information, including timestamps, log levels, module names, messages, and any additional fields such as request_id, event, strategy, and complexity_label if they are present in the log record.
+class JsonFormatter(
+    logging.Formatter
+):  # This class defines a custom log formatter that formats log records as JSON strings. It inherits from the logging.Formatter class and overrides the format method to create a JSON payload containing relevant log information, including timestamps, log levels, module names, messages, and any additional fields such as request_id, event, strategy, and complexity_label if they are present in the log record.
     """Format log records as JSON."""
 
     def format(self, record: logging.LogRecord) -> str:
-        """Return a JSON-formatted log line.""" 
+        """Return a JSON-formatted log line."""
         payload: dict[str, Any] = {
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
             "level": record.levelname,
             "module": record.name,
             "message": record.getMessage(),

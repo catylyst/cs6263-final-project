@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import pytest
-
 from myproject.classifier import classify_query
 
 

@@ -8,7 +8,8 @@ Run from the repo root with the app already up:
 Rubric thresholds:
   * sustained ≥ 10 req/s with < 5% error rate over a 60-second window
 """
-from locust import HttpUser, task, between
+
+from locust import HttpUser, between, task
 
 
 class HeadlineUser(HttpUser):

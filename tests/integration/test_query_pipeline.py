@@ -7,7 +7,6 @@ retriever, and answer strategies without requiring an external LLM API.
 from __future__ import annotations
 
 import pytest
-
 from myproject.router import route_query
 from myproject.strategies import FALLBACK_ANSWER
 

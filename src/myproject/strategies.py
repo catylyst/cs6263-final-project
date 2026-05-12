@@ -15,9 +15,7 @@ if TYPE_CHECKING:
     from myproject.retriever import Retriever
 
 
-FALLBACK_ANSWER = (
-    "I could not find enough evidence in the local corpus to answer the question."
-)
+FALLBACK_ANSWER = "I could not find enough evidence in the local corpus to answer the question."
 
 
 def no_retrieval_answer(query: str) -> dict:
@@ -48,7 +46,7 @@ def no_retrieval_answer(query: str) -> dict:
     }
 
 
-def single_step_answer(query: str, retriever: "Retriever", max_results: int = 5) -> dict:
+def single_step_answer(query: str, retriever: Retriever, max_results: int = 5) -> dict:
     """Retrieve evidence once and answer from the top passages.
 
     This strategy is used for label B questions.
@@ -71,7 +69,7 @@ def single_step_answer(query: str, retriever: "Retriever", max_results: int = 5)
     }
 
 
-def multi_step_answer(query: str, retriever: "Retriever", max_results: int = 5) -> dict:
+def multi_step_answer(query: str, retriever: Retriever, max_results: int = 5) -> dict:
     """Perform two retrieval rounds and combine evidence into one answer.
 
     This strategy is used for label C questions. The implementation is simple

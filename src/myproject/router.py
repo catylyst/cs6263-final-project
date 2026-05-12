@@ -19,7 +19,6 @@ from myproject.strategies import (
     single_step_answer,
 )
 
-
 DEFAULT_CORPUS_PATH = "data/corpus.jsonl"
 MAX_QUERY_CHARS = int(os.getenv("MAX_QUERY_CHARS", "1000"))
 
