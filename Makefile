@@ -18,6 +18,7 @@ PYTEST ?= python -m pytest
 # Where source lives. The course pins this; do not change.
 PACKAGE := myproject
 SRC := src/$(PACKAGE)
+export PYTHONPATH := src
 
 # ---------------------------------------------------------------------------
 help:
